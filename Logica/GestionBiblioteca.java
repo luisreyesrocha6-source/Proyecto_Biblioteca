@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import Modelo.Libro;
+import Modelo.Usuario;
 
 public class GestionBiblioteca {
     // Estructura de Lista para agendar libros
     private ArrayList<Libro> catalogo = new ArrayList<>();
     // Estructura de Cola para turnos de usuarios
-    private Queue<String> colaEspera = new LinkedList<>();
+    private Queue<Usuario> colaEspera = new LinkedList<>();
 
     public void registrarLibro(Libro nuevoLibro) {
         catalogo.add(nuevoLibro);
@@ -35,13 +36,15 @@ public class GestionBiblioteca {
         }
     }
 
-    public void solicitarPrestamo(String usuario) {
-        colaEspera.add(usuario);
-        System.out.println(">> " + usuario + " ha entrado a la cola de espera.");
+    public void solicitarPrestamo(String usuario, String identidad) {
+        Usuario nuevo = new Usuario(usuario, identidad);
+        colaEspera.add(nuevo);
+        System.out.println(">> " + usuario + " Proximo en la fila.");
     }
 
-    public void registrarUsuarioEnCola(String nombre) {
-        colaEspera.add(nombre);
+    public void registrarUsuarioEnCola(String nombre, String id) {
+        Usuario nuevo = new Usuario(nombre, id);
+        colaEspera.add(nuevo);
         System.out.println(">> " + nombre + " ha sido agregado a la cola de espera.");
     }
 
@@ -49,8 +52,8 @@ public class GestionBiblioteca {
         if (colaEspera.isEmpty()) {
             System.out.println("No hay usuarios en la cola de espera.");
         } else {
-            String usuarioAtendido = colaEspera.poll();
-            System.out.println(">> Procesando prestamo para: " + usuarioAtendido);
+            Usuario usuarioAtendido = colaEspera.poll();
+            System.out.println(">> Procesando para: " + usuarioAtendido.getNombre());
             System.out.print("Libro prestado");
         }
     }

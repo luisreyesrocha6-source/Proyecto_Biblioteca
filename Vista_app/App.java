@@ -48,12 +48,16 @@ public class App {
                 case 4:
                     System.out.print("Nombre del usuario: ");
                     String nombreU = leer.nextLine();
-                    gestion.registrarUsuarioEnCola(nombreU);
+                    System.out.print("Ingrese CC: ");
+                    String idU = leer.nextLine();
+                    gestion.registrarUsuarioEnCola(nombreU, idU);
                     break;
                 case 5:
                     System.out.print("Nombre del solicitante: ");
                     String solicitante = leer.nextLine();
-                    gestion.solicitarPrestamo(solicitante);
+                    System.out.print("Identificacion del solicitante: ");
+                    String idSolicitanteString = leer.nextLine();
+                    gestion.solicitarPrestamo(solicitante, idSolicitanteString);
                     break;
                 case 6:
                     gestion.procesarPrestamo();
