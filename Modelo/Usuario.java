@@ -3,23 +3,23 @@ package Modelo;
 public class Usuario {
 
     private String nombre;
-    private String id;
+    private String cedula;
 
-    public Usuario(String nombre, String id) {
+    public Usuario(String nombre, String cedula) {
         this.nombre = nombre;
-        this.id = id;
+        this.cedula = cedula;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public String getId() {
-        return id;
+    public String getCedula() {
+        return cedula;
     }
 
     @Override
     public String toString() {
-        return "ID: " + id + " | Usuario: " + nombre;
+        return "Cedula N: " + cedula + " | Usuario: " + nombre;
     }
 }

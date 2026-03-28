@@ -28,11 +28,19 @@ public class GestionBiblioteca {
         }
     }
 
-    public void buscarLibro(String titulo) {
+    public void buscarLibro(String tituloBuscado) {
+        boolean encontrado = false;
+
         for (Libro l : catalogo) {
-            if (l.getTitulo().equalsIgnoreCase(titulo))
-                System.out.println("Libro encontrado: " + 1);
-            return;
+            if (l.getTitulo().toLowerCase().contains(tituloBuscado.toLowerCase())) {
+                System.out.println("\n[!] Libro encontrado: ");
+                System.out.println(l.toString());
+                encontrado = true;
+            }
+        } // Cierra el for
+
+        if (!encontrado) {
+            System.out.println("\n[x] No se encontró el libro: " + tituloBuscado);
         }
     }
 
@@ -42,19 +50,20 @@ public class GestionBiblioteca {
         System.out.println(">> " + usuario + " Proximo en la fila.");
     }
 
-    public void registrarUsuarioEnCola(String nombre, String id) {
-        Usuario nuevo = new Usuario(nombre, id);
+    public void registrarUsuarioEnCola(String nombre, String cedula) {
+        Usuario nuevo = new Usuario(nombre, cedula);
         colaEspera.add(nuevo);
-        System.out.println(">> " + nombre + " ha sido agregado a la cola de espera.");
+        System.out.println(">> " + nuevo.getNombre() + "  Ingresó a la fila de espera.");
     }
 
-    public void procesarPrestamo() {
+    public void procesarSiguientePrestamo() {
         if (colaEspera.isEmpty()) {
-            System.out.println("No hay usuarios en la cola de espera.");
+            System.out.println(">>No hay usuarios en fila de espera.");
         } else {
-            Usuario usuarioAtendido = colaEspera.poll();
-            System.out.println(">> Procesando para: " + usuarioAtendido.getNombre());
-            System.out.print("Libro prestado");
+            Usuario atendido = colaEspera.poll();
+            System.out.println(">> Atendiendo a: " + atendido.getNombre());
+            System.out.print(">> Libro prestado con exito.");
+            System.out.println(">> Quedan " + colaEspera.size() + "personas en espera.");
         }
     }
 }

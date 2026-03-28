@@ -60,7 +60,7 @@ public class App {
                     gestion.solicitarPrestamo(solicitante, idSolicitanteString);
                     break;
                 case 6:
-                    gestion.procesarPrestamo();
+                    gestion.procesarSiguientePrestamo();
                     break;
                 case 7:
                     System.out.println("Devolucion en proceso...");
