@@ -20,8 +20,7 @@ public class App {
             System.out.println("4. Registrar usuarios");
             System.out.println("5. Solicitar préstamo");
             System.out.println("6. Procesar préstamo");
-            System.out.println("7. Devolver libros");
-            System.out.println("8. Salir");
+            System.out.println("7. Salir");
             System.out.print("Seleccione: ");
             opcion = leer.nextInt();
             leer.nextLine();
@@ -41,9 +40,21 @@ public class App {
                     gestion.mostrarLibros();
                     break;
                 case 3:
-                    System.out.print("Ingrese el título: ");
-                    String busqueda = leer.nextLine();
-                    gestion.buscarLibro(busqueda);
+                    System.out.println("\n--- Búsqueda (índice: árbol binario de búsqueda) ---");
+                    System.out.println("1. Buscar por título");
+                    System.out.println("2. Mostrar catálogo ordenado por título (recorrido inorden)");
+                    System.out.print("Opción: ");
+                    int subBusqueda = leer.nextInt();
+                    leer.nextLine();
+                    if (subBusqueda == 1) {
+                        System.out.print("Ingrese el título: ");
+                        String busqueda = leer.nextLine();
+                        gestion.buscarLibro(busqueda);
+                    } else if (subBusqueda == 2) {
+                        gestion.mostrarLibrosOrdenadosPorTitulo();
+                    } else {
+                        System.out.println("Opción no válida.");
+                    }
                     break;
                 case 4:
                     System.out.print("Nombre del usuario: ");
@@ -63,9 +74,6 @@ public class App {
                     gestion.procesarSiguientePrestamo();
                     break;
                 case 7:
-                    System.out.println("Devolucion en proceso...");
-                    break;
-                case 8:
                     System.out.println("Saliendo del sistema...");
                     continuar = false;
                     break;
@@ -74,13 +82,13 @@ public class App {
                     break;
             }
 
-            if (opcion != 8) {
+            if (opcion != 7) {
                 System.out.println("\n-----------------");
                 System.out.println("\nPresione ENTER para volver al menú principal-");
-                System.out.println("O escriba 8 para salir de la Biblioteca.");
+                System.out.println("O escriba 7 para salir de la Biblioteca.");
                 System.out.print("¿Que desea hacer?: ");
                 String respuesta = leer.nextLine();
-                if (respuesta.equals("8")) {
+                if (respuesta.equals("7")) {
                     continuar = false;
                 }
             }
