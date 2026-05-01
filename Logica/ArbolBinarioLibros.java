@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import Modelo.Libro;
 
-/**
- * Árbol binario de búsqueda que indexa libros por título (sin distinguir mayúsculas)
- * y desempata por ID para mantener un orden total ante títulos repetidos.
- */
 public class ArbolBinarioLibros {
 
     private Nodo raiz;
@@ -46,10 +42,7 @@ public class ArbolBinarioLibros {
         return nodo;
     }
 
-    /**
-     * Recupera todos los libros cuyo título coincide (ignorando mayúsculas).
-     * Recorre solo las ramas del ABB que pueden contener coincidencias.
-     */
+
     public List<Libro> buscarPorTitulo(String tituloBuscado) {
         List<Libro> resultado = new ArrayList<>();
         buscarPorTitulo(raiz, tituloBuscado, resultado);
@@ -72,8 +65,7 @@ public class ArbolBinarioLibros {
         }
     }
 
-    /** Recorrido inorden: títulos en orden lexicográfico (útil para listados). */
-    public List<Libro> recorridoInOrden() {
+       public List<Libro> recorridoInOrden() {
         List<Libro> lista = new ArrayList<>();
         inOrden(raiz, lista);
         return lista;
@@ -86,6 +78,73 @@ public class ArbolBinarioLibros {
         inOrden(nodo.izquierda, lista);
         lista.add(nodo.libro);
         inOrden(nodo.derecha, lista);
+    }
+
+    public void imprimirInOrden() {
+        if (raiz == null) {
+            System.out.println("(Árbol vacío — no hay libros en el índice.)");
+            return;
+        }
+        System.out.println("--- Recorrido INORDEN (izq → raíz → der) ---");
+        imprimirInOrdenRec(raiz);
+    }
+
+    private void imprimirInOrdenRec(Nodo nodo) {
+        if (nodo == null) {
+            return;
+        }
+        imprimirInOrdenRec(nodo.izquierda);
+        System.out.println(nodo.libro);
+        imprimirInOrdenRec(nodo.derecha);
+    }
+
+        public void imprimirPreOrden() {
+        if (raiz == null) {
+            System.out.println("(Árbol vacío — no hay libros en el índice.)");
+            return;
+        }
+        System.out.println("--- Recorrido PREORDEN (raíz → izq → der) ---");
+        imprimirPreOrdenRec(raiz);
+    }
+
+    private void imprimirPreOrdenRec(Nodo nodo) {
+        if (nodo == null) {
+            return;
+        }
+        System.out.println(nodo.libro);
+        imprimirPreOrdenRec(nodo.izquierda);
+        imprimirPreOrdenRec(nodo.derecha);
+    }
+
+    public void imprimirPostOrden() {
+        if (raiz == null) {
+            System.out.println("(Árbol vacío — no hay libros en el índice.)");
+            return;
+        }
+        System.out.println("--- Recorrido POSTORDEN (izq → der → raíz) ---");
+        imprimirPostOrdenRec(raiz);
+    }
+
+    private void imprimirPostOrdenRec(Nodo nodo) {
+        if (nodo == null) {
+            return;
+        }
+        imprimirPostOrdenRec(nodo.izquierda);
+        imprimirPostOrdenRec(nodo.derecha);
+        System.out.println(nodo.libro);
+    }
+
+    public int altura() {
+        return altura(raiz);
+    }
+
+    private int altura(Nodo nodo) {
+        if (nodo == null) {
+            return 0;
+        }
+        int altIzq = altura(nodo.izquierda);
+        int altDer = altura(nodo.derecha);
+        return 1 + Math.max(altIzq, altDer);
     }
 
     public boolean estaVacio() {

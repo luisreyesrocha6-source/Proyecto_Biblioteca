@@ -40,20 +40,35 @@ public class App {
                     gestion.mostrarLibros();
                     break;
                 case 3:
-                    System.out.println("\n--- Búsqueda (índice: árbol binario de búsqueda) ---");
+                    System.out.println("\n--- Índice en árbol binario de búsqueda (libros) ---");
                     System.out.println("1. Buscar por título");
-                    System.out.println("2. Mostrar catálogo ordenado por título (recorrido inorden)");
+                    System.out.println("2. Recorrido INORDEN (imprimir libros)");
+                    System.out.println("3. Recorrido PREORDEN (imprimir libros)");
+                    System.out.println("4. Recorrido POSTORDEN (imprimir libros)");
+                    System.out.println("5. Calcular altura del árbol");
                     System.out.print("Opción: ");
                     int subBusqueda = leer.nextInt();
                     leer.nextLine();
-                    if (subBusqueda == 1) {
-                        System.out.print("Ingrese el título: ");
-                        String busqueda = leer.nextLine();
-                        gestion.buscarLibro(busqueda);
-                    } else if (subBusqueda == 2) {
-                        gestion.mostrarLibrosOrdenadosPorTitulo();
-                    } else {
-                        System.out.println("Opción no válida.");
+                    switch (subBusqueda) {
+                        case 1:
+                            System.out.print("Ingrese el título: ");
+                            gestion.buscarLibro(leer.nextLine());
+                            break;
+                        case 2:
+                            gestion.reporteRecorridoInOrden();
+                            break;
+                        case 3:
+                            gestion.reporteRecorridoPreOrden();
+                            break;
+                        case 4:
+                            gestion.reporteRecorridoPostOrden();
+                            break;
+                        case 5:
+                            gestion.reporteAlturaArbol();
+                            break;
+                        default:
+                            System.out.println("Opción no válida.");
+                            break;
                     }
                     break;
                 case 4:

@@ -8,14 +8,11 @@ import Modelo.Libro;
 import Modelo.Usuario;
 
 public class GestionBiblioteca {
-    // Catálogo de libros usando ArrayList para acceso rápido y orden de inserción
-    private final ArrayList<Libro> catalogo;
+        private final ArrayList<Libro> catalogo;
 
-    // Índice de búsqueda: ABB por título (y desempate por ID)
-    private final ArbolBinarioLibros indicePorTitulo;
+        private final ArbolBinarioLibros indicePorTitulo;
 
-    // Cola para gestionar el turno de usuarios, garantiza FIFO
-    private final Queue<Usuario> colaEspera;
+        private final Queue<Usuario> colaEspera;
 
     public GestionBiblioteca() {
         this.catalogo = new ArrayList<>();
@@ -24,14 +21,14 @@ public class GestionBiblioteca {
     }
 
 
-    public void registrarLibro(Libro nuevoLibro) {
+1    public void registrarLibro(Libro nuevoLibro) {
         catalogo.add(nuevoLibro);
         indicePorTitulo.insertar(nuevoLibro);
         System.out.println(">> Éxito: Libro '" + nuevoLibro.getTitulo() + "' registrado.");
     }
 
     public void mostrarLibros() {
-        System.out.println("\n CATÁLOGO DE BIBLIOTECA ");
+        System.out.println("\n CATÁLOGO DE BIBLIOTECA (orden de registro — ArrayList) ");
         if (catalogo.isEmpty()) {
             System.out.println("El catálogo está vacío.");
         } else {
@@ -41,30 +38,39 @@ public class GestionBiblioteca {
         }
     }
 
-    /**
-     * Búsqueda por título usando el árbol binario de búsqueda (todas las coincidencias).
-     */
-    public void buscarLibro(String tituloBuscado) {
+        public void buscarLibro(String tituloBuscado) {
         List<Libro> coincidencias = indicePorTitulo.buscarPorTitulo(tituloBuscado);
         if (coincidencias.isEmpty()) {
             System.out.println("\n[x] No se encontró el libro: " + tituloBuscado);
         } else {
-            System.out.println("\n[!] Resultado(s) en el índice (ABB):");
+            System.out.println("\n[!] Resultado(s) vía índice ABB:");
             for (Libro libro : coincidencias) {
                 System.out.println(libro);
             }
         }
     }
 
-    /** Lista el catálogo según recorrido inorden del ABB (orden por título). */
-    public void mostrarLibrosOrdenadosPorTitulo() {
-        System.out.println("\n CATÁLOGO (recorrido inorden del árbol por título) ");
+    public void reporteRecorridoInOrden() {
+        System.out.println("\n REPORTE — INORDEN (árbol de libros) ");
+        indicePorTitulo.imprimirInOrden();
+    }
+
+    public void reporteRecorridoPreOrden() {
+        System.out.println("\n REPORTE — PREORDEN (árbol de libros) ");
+        indicePorTitulo.imprimirPreOrden();
+    }
+
+    public void reporteRecorridoPostOrden() {
+        System.out.println("\n REPORTE — POSTORDEN (árbol de libros) ");
+        indicePorTitulo.imprimirPostOrden();
+    }
+
+    public void reporteAlturaArbol() {
+        System.out.println("\n REPORTE — ALTURA DEL ÁRBOL DE ÍNDICE ");
         if (indicePorTitulo.estaVacio()) {
-            System.out.println("El índice está vacío.");
-            return;
-        }
-        for (Libro libro : indicePorTitulo.recorridoInOrden()) {
-            System.out.println(libro);
+            System.out.println("El árbol está vacío (altura 0).");
+        } else {
+            System.out.println("Altura del árbol: " + indicePorTitulo.altura());
         }
     }
 
