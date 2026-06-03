@@ -20,7 +20,8 @@ public class App {
             System.out.println("4. Registrar usuarios");
             System.out.println("5. Solicitar préstamo");
             System.out.println("6. Procesar préstamo");
-            System.out.println("7. Salir");
+            System.out.println("7. Módulo de grafos (estadísticas y recorridos)");
+            System.out.println("8. Salir");
             System.out.print("Seleccione: ");
             opcion = leer.nextInt();
             leer.nextLine();
@@ -86,9 +87,35 @@ public class App {
                     gestion.solicitarPrestamo(solicitante, idSolicitanteString);
                     break;
                 case 6:
-                    gestion.procesarSiguientePrestamo();
+                    System.out.print("ID del libro a prestar: ");
+                    String idLibroPrestamo = leer.nextLine();
+                    gestion.procesarSiguientePrestamo(idLibroPrestamo);
                     break;
                 case 7:
+                    System.out.println("\n--- MÓDULO DE GRAFOS ---");
+                    System.out.println("1. Libros más prestados (grado de entrada)");
+                    System.out.println("2. Usuarios más solicitantes (grado de salida)");
+                    System.out.println("3. Recorrido del libro (camino y BFS)");
+                    System.out.print("Opción: ");
+                    int subGrafo = leer.nextInt();
+                    leer.nextLine();
+                    switch (subGrafo) {
+                        case 1:
+                            gestion.mostrarEstadisticasGrafoLibros();
+                            break;
+                        case 2:
+                            gestion.mostrarEstadisticasGrafoUsuarios();
+                            break;
+                        case 3:
+                            System.out.print("ID del libro: ");
+                            gestion.mostrarRecorridoLibroEnGrafo(leer.nextLine());
+                            break;
+                        default:
+                            System.out.println("Opción no válida.");
+                            break;
+                    }
+                    break;
+                case 8:
                     System.out.println("Saliendo del sistema...");
                     continuar = false;
                     break;
@@ -97,13 +124,13 @@ public class App {
                     break;
             }
 
-            if (opcion != 7) {
+            if (opcion != 8) {
                 System.out.println("\n-----------------");
                 System.out.println("\nPresione ENTER para volver al menú principal-");
-                System.out.println("O escriba 7 para salir de la Biblioteca.");
+                System.out.println("O escriba 8 para salir de la Biblioteca.");
                 System.out.print("¿Que desea hacer?: ");
                 String respuesta = leer.nextLine();
-                if (respuesta.equals("7")) {
+                if (respuesta.equals("8")) {
                     continuar = false;
                 }
             }
